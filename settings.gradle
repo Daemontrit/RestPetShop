@@ -1,0 +1,9 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google() // Если вы используете зависимости, которые находятся в Google Maven repository
+    }
+}
+
+rootProject.name = 'PetProject'

@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.8.1' // Указываете актуальную версию плагина Allure
+}
+
+group 'com.yourcompany'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8 // или любая другая версия Java, которую вы используете
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Общие зависимости для работы с Java
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    // Зависимости для работы с Rest Assured
+    testImplementation 'io.rest-assured:rest-assured:4.4.0'
+    testImplementation 'io.rest-assured:json-schema-validator:4.4.0'
+    testImplementation 'io.rest-assured:xml-path:4.4.0'
+    testImplementation 'io.rest-assured:rest-assured-common:4.4.0'
+
+    // Зависимости для TestNG
+    testImplementation 'org.testng:testng:7.4.0'
+
+    // Логгер, например Log4j
+    testImplementation 'org.apache.logging.log4j:log4j-api:2.14.1'
+    testImplementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+
+    // Allure для отчетности
+    implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.17.3'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.20.0' // Используйте последнюю версию
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.20.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.20.0'
+}
+
+test {
+    useTestNG() {
+        // Указать, если нужен специальный путь до testng.xml файла
+        // suites 'src/test/resources/testng.xml'
+    }
+    // Подключение листенеров Allure, если требуется
+    systemProperty 'allure.results.directory', file('build/allure-results')
+}
+
+// Настройка для Allure
+
+
+// Подключение Docker, если это необходимо в проекте
+// plugins {
+//     id 'com.palantir.docker' version '0.22.1'
+// }
+// docker {
+//     name "${project.group}/${bootJar.baseName}"
+//     files bootJar.archivePath
+//     buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
+// }
